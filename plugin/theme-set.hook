@@ -1,0 +1,5 @@
+#!/bin/bash
+# Nach jedem Omarchy-Theme-Wechsel die Farben an homey-dash melden.
+# Im Hintergrund, damit ein unerreichbarer Server den Theme-Wechsel nicht aufhaelt.
+# Installation: Kopie nach ~/.config/omarchy/hooks/theme-set.d/homey-dash, Skript nach ~/.local/bin/homey-theme-sync
+( "$HOME/.local/bin/homey-theme-sync" "$1" >/dev/null 2>&1 || true ) &

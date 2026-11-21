@@ -1,0 +1,629 @@
+/* Themes: Standard folgt hell/dunkel des Geraets, die anderen sind fest.
+   Gewaehlt wird in den Einstellungen, gespeichert je Geraet (theme.js setzt data-theme). */
+:root {
+  --page: #f4f4f1;
+  --bar: #f4f4f1;
+  --fg: #1d1d1b;
+  --muted: #6b6b66;
+  --card: #ffffff;
+  --card-on: #fff4d6;
+  --line: #deded9;
+  --accent: #2f6fdf;
+  --accent-fg: #ffffff;
+  --on: #e0a100;
+  --error: #c0362c;
+  --ok: #2f8f4e;
+  --radius: 12px;
+  --radius-s: 8px;
+  --border: 1px;
+  --shadow: none;
+  --blur: none;
+  --font: system-ui, sans-serif;
+  --heading-case: uppercase;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --page: #161615;
+    --bar: #161615;
+    --fg: #ececea;
+    --muted: #9a9a94;
+    --card: #222220;
+    --card-on: #3a3220;
+    --line: #353532;
+    --accent: #6c9cf0;
+    --on: #f2c14e;
+    --error: #ef7a70;
+    --ok: #6cc28a;
+    color-scheme: dark;
+  }
+}
+
+/* Omarchy: Farben aus dem Theme Kokemusu, Monospace, kantig, Gruen nur fuer Signale */
+:root[data-theme="omarchy"] {
+  --page: #161716;
+  --bar: #161716;
+  --fg: #cfcdc4;
+  --muted: #7c7d77;
+  --card: #1e1f1e;
+  --card-on: #1e1f1e;
+  --line: #3a3b39;
+  --accent: #7fa66e;
+  --accent-fg: #121312;
+  --on: #7fa66e;
+  --error: #c98378;
+  --ok: #7fa66e;
+  --radius: 0;
+  --radius-s: 0;
+  --border: 2px;
+  --font: "BlexMono Nerd Font", "IBM Plex Mono", "JetBrainsMono Nerd Font", ui-monospace, monospace;
+  --heading-case: lowercase;
+  color-scheme: dark;
+}
+
+/* Aurora: dunkel, Farbverlauf hinter Glas-Kacheln */
+:root[data-theme="aurora"] {
+  --page: radial-gradient(1200px 700px at 10% -10%, #3b2a7a 0%, transparent 60%),
+          radial-gradient(900px 600px at 100% 10%, #0f5f6b 0%, transparent 55%),
+          radial-gradient(900px 700px at 50% 120%, #4a1f55 0%, transparent 60%), #0c0d18;
+  --bar: rgba(12, 13, 24, .55);
+  --fg: #eef0ff;
+  --muted: #a3a7c7;
+  --card: rgba(255, 255, 255, .07);
+  --card-on: rgba(255, 196, 92, .18);
+  --line: rgba(255, 255, 255, .12);
+  --accent: #9d8cff;
+  --accent-fg: #0c0d18;
+  --on: #ffc45c;
+  --error: #ff8a8a;
+  --ok: #7be0b0;
+  --radius: 18px;
+  --radius-s: 12px;
+  --shadow: 0 8px 24px rgba(0, 0, 0, .25);
+  --blur: blur(14px) saturate(140%);
+  --font: system-ui, "Inter", sans-serif;
+  color-scheme: dark;
+}
+
+/* Klar: hell, ohne Rahmen, weiche Schatten, grosse Rundungen */
+:root[data-theme="klar"] {
+  --page: #eceff3;
+  --bar: rgba(236, 239, 243, .85);
+  --fg: #111418;
+  --muted: #69707a;
+  --card: #ffffff;
+  --card-on: #fff6dc;
+  --line: transparent;
+  --accent: #0a6cff;
+  --accent-fg: #ffffff;
+  --on: #e59500;
+  --error: #d93b30;
+  --ok: #1f9d55;
+  --radius: 22px;
+  --radius-s: 14px;
+  --border: 0px;
+  --shadow: 0 1px 2px rgba(17, 20, 24, .06), 0 6px 18px rgba(17, 20, 24, .06);
+  --blur: blur(10px);
+  --font: system-ui, "Inter", sans-serif;
+  --heading-case: none;
+  color-scheme: light;
+}
+
+/* Papier: warmes Papier, Tinte, Serifen-Ueberschriften, Haarlinien. "An" wird invertiert (Tinte auf hell -> hell auf Tinte). */
+:root[data-theme="papier"] {
+  --page: #f3efe6;
+  --bar: rgba(243, 239, 230, .92);
+  --fg: #1b1a17;
+  --muted: #6f6a5f;
+  --card: #f3efe6;
+  --card-on: #1b1a17;
+  --line: rgba(27, 26, 23, .22);
+  --accent: #1b1a17;
+  --accent-fg: #f3efe6;
+  --on: #1b1a17;
+  --heat: #b4471f;
+  --error: #a3271c;
+  --ok: #3d6b3a;
+  --radius: 3px;
+  --radius-s: 3px;
+  --border: 1px;
+  --font: system-ui, sans-serif;
+  --serif: "Iowan Old Style", "Charter", "Source Serif Pro", "Noto Serif", Georgia, serif;
+  --heading-case: none;
+  color-scheme: light;
+}
+:root[data-theme="papier"] h1, :root[data-theme="papier"] .room-title > span:first-child,
+:root[data-theme="papier"] .tile .name, :root[data-theme="papier"] .flow-btn { font-family: var(--serif); font-weight: 600; }
+:root[data-theme="papier"] h1 { font-size: 1.6rem; font-style: italic; }
+:root[data-theme="papier"] h2 { font-family: var(--serif); font-style: italic; font-size: .95rem; letter-spacing: 0; color: var(--fg); border-bottom: 1px solid var(--fg); padding-bottom: 4px; }
+:root[data-theme="papier"] .tile { border-width: 0 0 1px; border-radius: 0; }
+:root[data-theme="papier"] .tile.on, :root[data-theme="papier"] .tile.on .value { color: #f3efe6; }
+:root[data-theme="papier"] .tile.on { border-radius: var(--radius); }
+:root[data-theme="papier"] .room-switch.on .knob { background: #f3efe6; }
+:root[data-theme="papier"] .tile.on .meta, :root[data-theme="papier"] .tile.on .where { color: #cfc9bb; }
+:root[data-theme="papier"] .tile input[type="range"] { accent-color: #1b1a17; }
+:root[data-theme="papier"] .tile.on input[type="range"] { accent-color: #f3efe6; }
+:root[data-theme="papier"] .chip { border-radius: 0; border-width: 0 0 1px; background: none; }
+:root[data-theme="papier"] .chip[aria-pressed="true"] { background: none; color: var(--fg); border-bottom: 3px solid var(--fg); }
+:root[data-theme="papier"] .room > summary { border-bottom: 1px solid var(--line); }
+
+/* Nacht: OLED-Schwarz, alles in gedimmtem Rot (blendet nicht, schont die Nachtsicht); grosse Zahlen, ohne Verbrauchsliste */
+:root[data-theme="nacht"] {
+  --page: #000;
+  --bar: #000;
+  --fg: #d0644c;
+  --muted: #7a3626;
+  --card: #0b0605;
+  --card-on: #2a0f08;
+  --line: #2a1310;
+  --accent: #b8452c;
+  --accent-fg: #000;
+  --on: #ff8a4c;
+  --heat: #ff5a36;
+  --error: #ff5a36;
+  --ok: #b8452c;
+  --radius: 14px;
+  --radius-s: 10px;
+  --border: 1px;
+  --font: system-ui, sans-serif;
+  --heading-case: uppercase;
+  color-scheme: dark;
+}
+:root[data-theme="nacht"] body { filter: brightness(.85); }
+:root[data-theme="nacht"] #power { display: none !important; }
+:root[data-theme="nacht"] .tile .value { font-size: 1.45rem; }
+:root[data-theme="nacht"] .tile.thermo .value { font-size: 1.9rem; }
+:root[data-theme="nacht"] .tile input[type="range"] { accent-color: #b8452c; }
+:root[data-theme="nacht"] .room3d .top { stroke: #2a1310; }
+
+/* Bento: kraeftige Farbfelder, grosse Rundungen. Aufteilung: Gruppen und Thermostate doppelt breit, an = vollflaechig */
+:root[data-theme="bento"] {
+  --page: #141414;
+  --bar: rgba(20, 20, 20, .9);
+  --fg: #f5f2ea;
+  --muted: #9b978e;
+  --card: #222121;
+  --card-on: #ffd43b;
+  --line: transparent;
+  --accent: #c6f432;
+  --accent-fg: #141414;
+  --on: #ffd43b;
+  --heat: #ff7a59;
+  --error: #ff7a59;
+  --ok: #c6f432;
+  --radius: 26px;
+  --radius-s: 16px;
+  --border: 0px;
+  --font: system-ui, sans-serif;
+  --heading-case: none;
+  color-scheme: dark;
+}
+:root[data-theme="bento"] h1 { font-size: 1.6rem; font-weight: 800; letter-spacing: -.02em; }
+:root[data-theme="bento"] h2 { font-size: 1.05rem; font-weight: 800; letter-spacing: -.01em; color: var(--fg); }
+:root[data-theme="bento"] .tiles { gap: 10px; }
+:root[data-theme="bento"] .tiles:not(.strip) { grid-auto-flow: dense; }
+:root[data-theme="bento"] .tile { min-height: 120px; }
+:root[data-theme="bento"] .tile .name { font-weight: 750; }
+:root[data-theme="bento"] .tile .value { font-size: 1.4rem; font-weight: 800; }
+:root[data-theme="bento"] .tile.on, :root[data-theme="bento"] .tile.on .value { color: #141414; }
+:root[data-theme="bento"] .tile.on .meta, :root[data-theme="bento"] .tile.on .where { color: #5a4a00; }
+:root[data-theme="bento"] .tile.on input[type="range"] { accent-color: #141414; }
+:root[data-theme="bento"] .tiles:not(.strip) > .tile.group, :root[data-theme="bento"] .tiles:not(.strip):not(.heat-grid) > .tile.thermo { grid-column: span 2; }
+@media (max-width: 340px) { :root[data-theme="bento"] .tiles:not(.strip) > .tile { grid-column: auto; } }
+:root[data-theme="bento"] .tile.thermo { background: var(--card); }
+:root[data-theme="bento"] .tile.thermo.heating { background: #ff7a59; color: #141414; }
+:root[data-theme="bento"] .tile.thermo.heating .value, :root[data-theme="bento"] .tile.thermo.heating .name, :root[data-theme="bento"] .tile.thermo.heating .target { color: #141414; }
+:root[data-theme="bento"] .tile.thermo.heating .badge.hot { background: #141414; color: #ff7a59; }
+:root[data-theme="bento"] .tile.thermo .value { font-size: 2.2rem; }
+:root[data-theme="bento"] .tile.thermo .stepper button { background: rgba(255, 255, 255, .1); border: 0; border-radius: 50%; }
+:root[data-theme="bento"] .tile.thermo.heating .room-switch.mini.on { background: #141414; }
+:root[data-theme="bento"] .tile.thermo.heating .stepper button { background: rgba(20, 20, 20, .14); color: #141414; }
+:root[data-theme="bento"] .flow-btn { min-height: 76px; color: #141414; font-weight: 800; font-size: 1.05rem; }
+:root[data-theme="bento"] .flow-btn:nth-child(4n+1) { background: #c6f432; }
+:root[data-theme="bento"] .flow-btn:nth-child(4n+2) { background: #b9a7ff; }
+:root[data-theme="bento"] .flow-btn:nth-child(4n+3) { background: #7cd4ff; }
+:root[data-theme="bento"] .flow-btn:nth-child(4n+4) { background: #ff9fb2; }
+:root[data-theme="bento"] .chip { font-weight: 700; }
+:root[data-theme="bento"] .room-card.on { background: #ffd43b; color: #141414; }
+:root[data-theme="bento"] .room-card.on .room-info { color: #5a4a00; }
+
+:root { font-family: var(--font); }
+
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+html { scroll-padding-top: 120px; }
+body { margin: 0; min-height: 100vh; background: var(--page); background-attachment: fixed; color: var(--fg); -webkit-tap-highlight-color: transparent; }
+h1 { font-size: 1.3rem; margin: 0; }
+h2 { font-size: .8rem; font-weight: 600; letter-spacing: .06em; text-transform: var(--heading-case); color: var(--muted); margin: 0 0 8px; }
+button { font: inherit; color: inherit; cursor: pointer; }
+input { font: inherit; }
+
+/* Anmeldung */
+#login { max-width: 360px; margin: 15vh auto 0; padding: 16px; display: grid; gap: 12px; }
+#login h1 { margin-bottom: 8px; }
+label { display: grid; gap: 4px; color: var(--muted); font-size: .9rem; }
+#login input, #search { padding: 10px 12px; min-height: 44px; border: var(--border) solid var(--line); border-radius: var(--radius-s); background: var(--card); color: var(--fg); box-shadow: var(--shadow); backdrop-filter: var(--blur); }
+#login button { min-height: 44px; border: 0; border-radius: var(--radius-s); background: var(--accent); color: var(--accent-fg); }
+.error { color: var(--error); min-height: 1.2em; margin: 0; }
+
+/* Kopf und Filter */
+.top { display: flex; align-items: center; gap: 12px; padding: 12px 16px 0; max-width: 1600px; margin: 0 auto; }
+#search { flex: 1; min-width: 0; max-width: 320px; margin-left: auto; }
+.pick { flex: none; min-height: 44px; max-width: 180px; padding: 0 10px; border: var(--border) solid var(--line); border-radius: var(--radius-s); background: var(--card); color: var(--fg); font: inherit; box-shadow: var(--shadow); cursor: pointer; }
+.pick option { background: var(--page); color: var(--fg); }
+@media (max-width: 599px) {
+  .top { flex-wrap: wrap; }
+  .top { gap: 8px; }
+  .top h1 { flex: 1 1 calc(100% - 60px); }
+  .pick { order: 1; flex: 1 1 40%; min-width: 0; max-width: none; }
+  #search { order: 2; flex-basis: 100%; max-width: none; }
+}
+button.link { background: none; border: 0; color: var(--accent); padding: 0 4px; min-height: 44px; }
+.filters {
+  position: sticky; top: 0; z-index: 5; display: flex; gap: 8px; align-items: center;
+  padding: 10px 16px; max-width: 1600px; margin: 0 auto; background: var(--bar); backdrop-filter: var(--blur); -webkit-backdrop-filter: var(--blur); overflow-x: auto;
+}
+.chip { min-height: 36px; padding: 0 14px; border-radius: calc(var(--radius-s) * 2.25); border: var(--border) solid var(--line); background: var(--card); white-space: nowrap; box-shadow: var(--shadow); }
+.chip[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: var(--accent-fg); }
+.status { margin-left: auto; font-size: .8rem; color: var(--muted); white-space: nowrap; }
+.status.stale { color: var(--error); }
+
+/* Raster: Handy eine Spalte, Tablet zwei, Desktop drei */
+.layout {
+  display: grid; gap: 20px; padding: 4px 16px 96px; max-width: 1600px; margin: 0 auto;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-areas: "summary" "heat" "flows" "rooms" "power" "favs";
+}
+#zones { grid-area: zones; display: none; }
+#heat { grid-area: heat; }
+#favs { grid-area: favs; }
+#flows { grid-area: flows; }
+#rooms { grid-area: rooms; }
+#power { grid-area: power; }
+
+@media (min-width: 600px) {
+  .layout {
+    grid-template-columns: 190px minmax(0, 1fr);
+    grid-template-areas: "zones heat" "zones favs" "zones flows" "zones rooms" "zones power";
+    padding-bottom: 24px;
+  }
+  #zones { display: flex; flex-direction: column; gap: 2px; position: sticky; top: 64px; align-self: start; max-height: calc(100vh - 80px); overflow-y: auto; }
+  .bottom { display: none !important; }
+  .strip { grid-auto-flow: row !important; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)) !important; overflow: visible !important; }
+}
+@media (min-width: 1100px) {
+  .layout {
+    grid-template-columns: 210px minmax(0, 1fr) 300px;
+    grid-template-rows: auto auto auto 1fr;
+    grid-template-areas: "zones heat flows" "zones favs flows" "zones rooms power" "zones rooms .";
+  }
+  #flows, #power { align-self: start; }
+  #power { position: sticky; top: 64px; }
+}
+
+/* Raumliste links */
+.zone-btn {
+  display: flex; justify-content: space-between; align-items: center; gap: 8px; text-align: left; min-height: 40px; padding: 0 10px;
+  border: 0; border-radius: var(--radius-s); background: none;
+}
+.zone-btn.sub { padding-left: 24px; font-size: .92rem; }
+.zone-btn[aria-current="true"] { background: var(--card); font-weight: 600; }
+.zone-btn .count { color: var(--muted); font-size: .85rem; }
+
+/* Kacheln */
+.tiles { display: grid; gap: 8px; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
+.strip { grid-auto-flow: column; grid-auto-columns: minmax(150px, 46%); grid-template-columns: none; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 4px; }
+.strip > * { scroll-snap-align: start; }
+.tile {
+  container-type: inline-size; display: flex; flex-direction: column; min-height: 88px;
+  background: var(--card); border: var(--border) solid var(--line); border-radius: var(--radius); overflow: hidden;
+  box-shadow: var(--shadow); backdrop-filter: var(--blur); -webkit-backdrop-filter: var(--blur);
+}
+.tile.on { background: var(--card-on); border-color: color-mix(in srgb, var(--on) 45%, var(--line)); }
+.tile.na { opacity: .5; }
+.tile-main {
+  flex: 1; display: flex; flex-direction: column; align-items: flex-start; gap: 2px; padding: 10px 12px;
+  border: 0; background: none; text-align: left; min-height: 64px;
+}
+button.tile-main:active { background: color-mix(in srgb, var(--fg) 8%, transparent); }
+.tile .name { font-weight: 600; line-height: 1.2; overflow-wrap: anywhere; }
+.tile .where { font-size: .78rem; color: var(--muted); }
+.tile .value { font-size: 1.15rem; margin-top: auto; }
+.tile.on .value { color: var(--on); font-weight: 600; }
+.tile .meta { font-size: .8rem; color: var(--muted); }
+.tile input[type="range"] { width: calc(100% - 24px); margin: 0 12px 12px; min-height: 28px; accent-color: var(--on); }
+.tile.busy { opacity: .7; }
+@container (max-width: 140px) { .tile .meta { display: none; } }
+/* Thermostat: Raum, Ist gross mit Schalter daneben, Status nur wenn er etwas sagt, unten Soll mit -/+.
+   Orange (--heat) heisst ausschliesslich "heizt gerade". */
+.tile.thermo .tile-main { gap: 4px; padding-bottom: 6px; min-height: 0; }
+.tile.thermo .name { align-self: stretch; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; overflow-wrap: normal; }
+.thermo-row { display: flex; align-items: center; justify-content: space-between; gap: 6px; align-self: stretch; }
+.tile.thermo .value { margin: 0; font-size: 1.9rem; font-weight: 650; line-height: 1.05; font-variant-numeric: tabular-nums; }
+.tile.thermo .badge { font-size: .75rem; font-weight: 650; padding: 2px 8px; border-radius: 999px; background: color-mix(in srgb, var(--fg) 10%, transparent); color: var(--muted); }
+.tile.thermo .badge.hot { background: var(--heat, #f08a4b); color: #141414; }
+.tile.thermo .badge.hot::before { content: "▲ "; font-size: .65rem; }
+.tile.thermo.heating { border-color: var(--heat, #f08a4b); background: color-mix(in srgb, var(--heat, #f08a4b) 16%, var(--card)); }
+.tile.thermo.heating .value { color: var(--heat, #f08a4b); }
+.tile.thermo.off .value, .tile.thermo.off .target { color: var(--muted); }
+.room-switch.mini { width: 40px; height: 24px; padding: 2px; border-radius: 12px; }
+.room-switch.mini .knob { width: 20px; height: 20px; }
+.room-switch.mini.on { background: color-mix(in srgb, var(--fg) 55%, transparent); }
+.room-switch.mini.on .knob { transform: translateX(16px); }
+.stepper { display: grid; grid-template-columns: 44px 1fr 44px; align-items: center; gap: 4px; margin: auto 10px 10px; }
+.stepper button { min-height: 40px; border-radius: var(--radius-s); border: var(--border) solid var(--line); background: color-mix(in srgb, var(--fg) 7%, var(--card)); font-size: 1.3rem; line-height: 1; }
+.stepper button:disabled { opacity: .4; }
+.stepper button:hover:not(:disabled) { border-color: var(--heat, #f08a4b); }
+.stepper .target { white-space: nowrap; font-size: 1.1rem; text-align: center; font-weight: 600; font-variant-numeric: tabular-nums; }
+/* Heizung: auf dem Handy zwei Spalten, alles sichtbar (kein Seitwaerts-Streifen) */
+.heat-grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); }
+@media (max-width: 599px) { .heat-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 300px) { .heat-grid { grid-template-columns: minmax(0, 1fr); } }
+:root[data-theme="omarchy"] .room-switch.mini { border-radius: 0; }
+
+
+/* Raumgruppen */
+.room { margin-bottom: 12px; }
+.room > summary {
+  list-style: none; display: flex; align-items: center; gap: 8px; cursor: pointer;
+  min-height: 52px; padding: 4px 4px; font-weight: 600;
+}
+.room > summary::-webkit-details-marker { display: none; }
+.room > summary::after { content: "›"; color: var(--muted); transition: transform .15s; }
+.room[open] > summary::after { transform: rotate(90deg); }
+.zone-toggles { display: inline-flex; gap: 6px; flex: none; }
+.zone-toggles:empty { display: none; }
+.room-title { flex: 1; min-width: 0; display: grid; gap: 2px; }
+.room-title .dot { margin-left: 6px; }
+.room-sub { font-size: .8rem; font-weight: 400; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.room.lit .room-sub { color: var(--fg); }
+.room.heating .room-sub { color: var(--heat, #f08a4b); }
+.room .empty { grid-column: 1 / -1; margin: 0; padding: 4px 4px 8px; font-size: .85rem; color: var(--muted); }
+.zone-toggle { min-height: 30px; padding: 0 10px; border-radius: calc(var(--radius-s) * 2); border: var(--border) solid var(--line); background: var(--card); color: var(--muted); font-size: .8rem; font-weight: 500; }
+.zone-toggle[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: var(--accent-fg); }
+@media (hover: hover) { .zone-toggle:hover { color: var(--fg); } }
+:root[data-theme="omarchy"] .zone-toggle { border-radius: 0; }
+@media (pointer: coarse) {
+  .zone-toggles { gap: 8px; padding: 2px 0; }
+  .zone-toggle { min-height: 40px; min-width: 64px; padding: 0 14px; font-size: .85rem; }
+}
+.room > summary .count { color: var(--muted); font-weight: 400; font-size: .85rem; min-width: 1.5em; text-align: right; }
+.empty { color: var(--muted); }
+
+/* Flows */
+.flow-list { display: grid; gap: 8px; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); }
+@media (max-width: 599px) {
+  .flow-list { display: flex; flex-direction: column; align-items: flex-end; }
+  .flow-list .flow-btn { min-width: 64%; max-width: 100%; text-align: right; }
+  #flows h2 { text-align: right; }
+}
+.flow-btn { min-height: 48px; padding: 8px 12px; border-radius: var(--radius); border: var(--border) solid var(--line); background: var(--card); text-align: left; font-weight: 600; box-shadow: var(--shadow); backdrop-filter: var(--blur); }
+.flow-btn.done { border-color: var(--ok); color: var(--ok); }
+.flow-btn:disabled { opacity: .6; }
+@media (min-width: 1100px) { .flow-list { grid-template-columns: 1fr 1fr; } }
+
+/* Verbrauch */
+.power-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 2px; }
+.power-list li { display: flex; justify-content: space-between; gap: 8px; padding: 6px 4px; border-bottom: 1px solid var(--line); font-size: .92rem; }
+.power-list .w { font-variant-numeric: tabular-nums; color: var(--muted); white-space: nowrap; }
+
+/* Untere Leiste (nur Handy) */
+.bottom {
+  position: fixed; left: 0; right: 0; bottom: 0; z-index: 6; display: flex;
+  background: var(--bar); backdrop-filter: var(--blur); -webkit-backdrop-filter: var(--blur); border-top: 1px solid var(--line); padding-bottom: env(safe-area-inset-bottom);
+}
+.bottom a { flex: 1; text-align: center; padding: 14px 0; min-height: 52px; color: var(--fg); text-decoration: none; font-size: .9rem; }
+
+.toast {
+  position: fixed; left: 50%; bottom: 76px; transform: translateX(-50%); z-index: 10; max-width: calc(100% - 32px);
+  background: var(--fg); color: var(--bg); padding: 10px 16px; border-radius: 8px; font-size: .9rem;
+}
+@media (min-width: 600px) { .toast { bottom: 24px; } }
+
+/* Omarchy: aktive Elemente mit Akzentrand statt Flaeche */
+:root[data-theme="omarchy"] .tile.on { border-color: var(--accent); }
+:root[data-theme="omarchy"] .zone-btn[aria-current="true"] { background: none; color: var(--accent); box-shadow: inset 2px 0 0 var(--accent); }
+:root[data-theme="omarchy"] h1::before { content: "~/"; color: var(--accent); }
+
+/* Einstellungen */
+.icon-btn { display: inline-flex; align-items: center; justify-content: center; background: none; border: 0; min-width: 44px; min-height: 44px; color: var(--muted); font-size: 1.3rem; }
+.icon-btn:hover { color: var(--fg); }
+dialog {
+  width: min(560px, calc(100% - 32px)); max-height: calc(100% - 32px); padding: 20px; border: var(--border) solid var(--line);
+  border-radius: var(--radius); background: var(--card); color: var(--fg); box-shadow: 0 20px 60px rgba(0, 0, 0, .4);
+}
+:root[data-theme="aurora"] dialog { background: #191a2c; }
+dialog::backdrop { background: rgba(0, 0, 0, .5); }
+dialog h2 { margin-top: 16px; }
+.dialog-head { display: flex; justify-content: space-between; align-items: center; }
+.dialog-head h1::before { content: none !important; }
+.themes { display: grid; gap: 10px; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); }
+.theme-opt { display: grid; gap: 6px; padding: 8px; border: 2px solid var(--line); border-radius: var(--radius-s); background: none; text-align: left; }
+.theme-opt[aria-checked="true"] { border-color: var(--accent); }
+.theme-opt .name { font-weight: 600; font-size: .9rem; }
+.theme-opt .desc { font-size: .75rem; color: var(--muted); }
+.swatch { height: 56px; border-radius: 6px; display: flex; align-items: flex-end; gap: 4px; padding: 6px; }
+.swatch i { display: block; width: 22px; height: 16px; border-radius: 3px; }
+.sw-system { background: linear-gradient(135deg, #f4f4f1 50%, #161615 50%); }
+.sw-system i:nth-child(1) { background: #fff; border: 1px solid #deded9; } .sw-system i:nth-child(2) { background: #222220; } .sw-system i:nth-child(3) { background: #f2c14e; }
+.sw-omarchy { background: #161716; border-radius: 0; font-family: "BlexMono Nerd Font", ui-monospace, monospace; }
+.sw-omarchy i { border-radius: 0; } .sw-omarchy i:nth-child(1) { background: #1e1f1e; border: 2px solid #3a3b39; } .sw-omarchy i:nth-child(2) { background: #1e1f1e; border: 2px solid #7fa66e; } .sw-omarchy i:nth-child(3) { background: #7fa66e; }
+.sw-aurora { background: radial-gradient(80px 60px at 10% 0%, #3b2a7a, transparent), radial-gradient(80px 60px at 100% 30%, #0f5f6b, transparent), #0c0d18; border-radius: 10px; }
+.sw-aurora i { border-radius: 6px; } .sw-aurora i:nth-child(1) { background: rgba(255,255,255,.12); } .sw-aurora i:nth-child(2) { background: rgba(255,196,92,.35); } .sw-aurora i:nth-child(3) { background: #9d8cff; }
+.sw-klar { background: #eceff3; border-radius: 12px; }
+.sw-klar i { border-radius: 7px; } .sw-klar i:nth-child(1) { background: #fff; box-shadow: 0 2px 6px rgba(0,0,0,.08); } .sw-klar i:nth-child(2) { background: #fff6dc; } .sw-klar i:nth-child(3) { background: #0a6cff; }
+.sw-papier { background: #f3efe6; border-radius: 3px; }
+.sw-papier i { border-radius: 0; } .sw-papier i:nth-child(1) { background: transparent; border-bottom: 2px solid #1b1a17; } .sw-papier i:nth-child(2) { background: #1b1a17; } .sw-papier i:nth-child(3) { background: #b4471f; }
+.sw-nacht { background: #000; border-radius: 10px; }
+.sw-nacht i { border-radius: 5px; } .sw-nacht i:nth-child(1) { background: #0b0605; border: 1px solid #2a1310; } .sw-nacht i:nth-child(2) { background: #2a0f08; } .sw-nacht i:nth-child(3) { background: #d0644c; }
+.sw-bento { background: #141414; border-radius: 14px; }
+.sw-bento i { border-radius: 8px; } .sw-bento i:nth-child(1) { background: #ffd43b; width: 34px; } .sw-bento i:nth-child(2) { background: #c6f432; } .sw-bento i:nth-child(3) { background: #ff7a59; }
+.account { display: flex; justify-content: space-between; align-items: center; gap: 12px; color: var(--muted); }
+
+/* ---------------------------------------------------------------- Ansichten
+   Standard: wie oben. Uebersicht: Info-Block zuerst. Raeume: Raumkarten statt Geraeteliste. */
+#summary, #cards { display: none; }
+#summary { grid-area: summary; }
+#cards { grid-area: cards; }
+
+:root[data-layout="uebersicht"] #summary { display: grid; }
+/* Handy: Widgets auch in Standard, Reihenfolge wie im Grundraster */
+@media (max-width: 599px) { :root[data-layout="standard"] #summary { display: grid; } }
+
+:root[data-layout="raeume"] #cards { display: block; }
+:root[data-layout="raeume"] #zones,
+:root[data-layout="raeume"] #rooms,
+:root[data-layout="raeume"] #favs,
+:root[data-layout="raeume"] #heat,
+:root[data-layout="raeume"] .chip,
+:root[data-layout="raeume"] .bottom { display: none !important; }
+:root[data-layout="raeume"] .layout { grid-template-columns: minmax(0, 1fr); grid-template-areas: "flows" "cards" "power"; padding-bottom: 24px; }
+
+@media (min-width: 600px) {
+  :root[data-layout="uebersicht"] .layout { grid-template-areas: "summary summary" "zones heat" "zones favs" "zones flows" "zones rooms" "zones power"; }
+}
+@media (min-width: 1100px) {
+  :root[data-layout="uebersicht"] .layout {
+    grid-template-rows: auto auto auto auto 1fr;
+    grid-template-areas: "summary summary summary" "zones heat flows" "zones favs flows" "zones rooms power" "zones rooms .";
+  }
+  :root[data-layout="raeume"] .layout { grid-template-columns: minmax(0, 1fr) 300px; grid-template-areas: "cards flows" "cards power"; grid-template-rows: auto 1fr; }
+}
+
+/* Info-Block */
+.summary { gap: 10px; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+@media (min-width: 600px) { .summary { grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); } }
+.sum-card {
+  display: flex; flex-direction: column; gap: 2px; min-height: 104px; padding: 14px;
+  background: var(--card); border: var(--border) solid var(--line); border-radius: var(--radius);
+  box-shadow: var(--shadow); backdrop-filter: var(--blur); -webkit-backdrop-filter: var(--blur);
+  animation: rise .5s both;
+}
+.sum-card:nth-child(2) { animation-delay: .06s; } .sum-card:nth-child(3) { animation-delay: .12s; }
+.sum-card:nth-child(4) { animation-delay: .18s; } .sum-card:nth-child(5) { animation-delay: .24s; }
+.sum-lights { grid-column: span 2; flex-direction: row; align-items: center; gap: 14px; }
+@media (min-width: 600px) { .sum-lights { grid-column: auto; } }
+.sum-lights > div { display: flex; flex-direction: column; min-width: 0; }
+.sum-label { font-size: .78rem; color: var(--muted); text-transform: var(--heading-case); letter-spacing: .04em; }
+.sum-big { font-size: 1.9rem; font-weight: 650; line-height: 1.1; font-variant-numeric: tabular-nums; }
+.sum-sub { font-size: .8rem; color: var(--muted); overflow-wrap: anywhere; }
+.ring { width: 64px; height: 64px; flex: none; transform: rotate(-90deg); }
+.ring circle { fill: none; stroke-width: 5; }
+.ring-bg { stroke: color-mix(in srgb, var(--fg) 12%, transparent); }
+.ring-fg { stroke: var(--on); stroke-linecap: round; stroke-dasharray: 100; stroke-dashoffset: 100; transition: stroke-dashoffset .9s cubic-bezier(.2, .8, .2, 1); }
+:root[data-theme="omarchy"] .ring-fg { stroke-linecap: butt; }
+.spark { width: 100%; height: 32px; margin-top: auto; }
+.spark-line { fill: none; stroke: var(--accent); stroke-width: 1.6; vector-effect: non-scaling-stroke; }
+.spark-area { fill: color-mix(in srgb, var(--accent) 18%, transparent); stroke: none; }
+.sum-motion { display: flex; flex-wrap: wrap; gap: 4px 10px; margin: 2px 0; }
+.pulse { display: inline-flex; align-items: center; gap: 6px; font-size: .9rem; }
+.pulse::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--ok); animation: pulse 1.6s infinite; }
+@keyframes pulse { 0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--ok) 60%, transparent); } 100% { box-shadow: 0 0 0 9px transparent; } }
+@keyframes rise { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+
+/* Raumkarten */
+.room-cards { display: grid; gap: 10px; grid-template-columns: repeat(auto-fill, minmax(min(100%, 230px), 1fr)); }
+.room-card {
+  display: flex; align-items: center; gap: 8px; min-height: 84px; padding-right: 12px;
+  background: var(--card); border: var(--border) solid var(--line); border-radius: var(--radius);
+  box-shadow: var(--shadow); backdrop-filter: var(--blur); -webkit-backdrop-filter: var(--blur);
+  transition: background .3s, border-color .3s;
+}
+.room-card.on { background: var(--card-on); border-color: color-mix(in srgb, var(--on) 45%, var(--line)); }
+:root[data-theme="omarchy"] .room-card.on { border-color: var(--accent); }
+.room-open { flex: 1; min-width: 0; align-self: stretch; display: flex; flex-direction: column; justify-content: center; gap: 4px; padding: 12px 14px; background: none; border: 0; text-align: left; }
+.room-name { font-weight: 650; font-size: 1.05rem; display: flex; align-items: center; gap: 8px; }
+.room-info { font-size: .85rem; color: var(--muted); }
+.room-card.on .room-info { color: var(--fg); }
+.dot { width: 8px; height: 8px; border-radius: 50%; background: var(--ok); animation: pulse 1.6s infinite; }
+.room-switch { flex: none; width: 56px; height: 32px; padding: 3px; border-radius: 16px; border: 0; background: color-mix(in srgb, var(--fg) 16%, transparent); transition: background .25s; }
+.room-switch .knob { display: block; width: 26px; height: 26px; border-radius: 50%; background: var(--card); box-shadow: 0 1px 3px rgba(0, 0, 0, .3); transition: transform .25s cubic-bezier(.3, 1.4, .5, 1); }
+.room-switch.on { background: var(--on); }
+.room-switch.on .knob { transform: translateX(24px); }
+:root[data-theme="omarchy"] .room-switch, :root[data-theme="omarchy"] .room-switch .knob { border-radius: 0; }
+
+/* Raum-Blatt: auf dem Handy von unten, sonst mittig */
+dialog.sheet { width: min(900px, calc(100% - 32px)); }
+dialog.sheet .tiles { margin-top: 12px; }
+@media (max-width: 599px) {
+  dialog.sheet {
+    width: 100%; max-width: none; margin: auto 0 0; max-height: 85vh; border-radius: var(--radius) var(--radius) 0 0;
+    padding-bottom: calc(20px + env(safe-area-inset-bottom)); animation: slide-up .25s ease-out;
+  }
+}
+@keyframes slide-up { from { transform: translateY(100%); } to { transform: none; } }
+
+/* Vorschau der Ansichten in den Einstellungen */
+.langs { display: flex; flex-wrap: wrap; gap: 8px; }
+.layouts { display: grid; gap: 10px; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); }
+.swatch.lay { background: color-mix(in srgb, var(--fg) 8%, transparent); display: grid; gap: 3px; padding: 6px; }
+.swatch.lay i { width: auto; height: auto; border-radius: 2px; background: color-mix(in srgb, var(--fg) 22%, transparent); }
+.lay-standard { grid-template-columns: 1fr 3fr; } .lay-standard i:nth-child(1) { grid-row: span 3; } .lay-standard i:nth-child(4) { display: none !important; }
+.lay-uebersicht { grid-template-columns: repeat(4, 1fr); } .lay-uebersicht i { background: var(--accent) !important; opacity: .7; } .lay-uebersicht i:nth-child(n) { grid-row: 1; }
+.lay-uebersicht::after { content: ""; grid-column: 1 / -1; background: color-mix(in srgb, var(--fg) 22%, transparent); border-radius: 2px; }
+.lay-raeume { grid-template-columns: 1fr 1fr; } .lay-raeume i:nth-child(odd) { background: var(--on) !important; opacity: .7; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
+
+/* ---------------------------------------------------------------- Grundriss (isometrisch) */
+#plan { display: none; grid-area: plan; }
+:root[data-layout="grundriss"] #plan { display: block; }
+:root[data-layout="grundriss"] #zones,
+:root[data-layout="grundriss"] #rooms,
+:root[data-layout="grundriss"] #favs,
+:root[data-layout="grundriss"] #heat,
+:root[data-layout="grundriss"] .chip,
+:root[data-layout="grundriss"] .bottom { display: none !important; }
+:root[data-layout="grundriss"] .layout { grid-template-columns: minmax(0, 1fr); grid-template-areas: "plan" "flows" "power"; padding-bottom: 24px; }
+@media (min-width: 1100px) {
+  :root[data-layout="grundriss"] .layout { grid-template-columns: minmax(0, 1fr) 300px; grid-template-areas: "plan flows" "plan power"; grid-template-rows: auto 1fr; }
+}
+#plan { position: relative; }
+.plan-turn { position: absolute; top: 4px; right: 4px; z-index: 1; }
+.plan-svg { display: block; width: 100%; height: auto; max-height: calc(100vh - 140px); overflow: visible; }
+.room3d { cursor: pointer; outline: none; }
+.room3d .top { fill: var(--card); stroke: color-mix(in srgb, var(--fg) 18%, transparent); stroke-width: 2; transition: fill .4s, filter .4s; }
+.room3d .side-l { fill: color-mix(in srgb, var(--card) 72%, #000); }
+.room3d .side-r { fill: color-mix(in srgb, var(--card) 55%, #000); }
+.room3d.outdoor .top { fill: color-mix(in srgb, var(--ok) 14%, var(--card)); }
+.room3d.on .top { fill: color-mix(in srgb, var(--on) 38%, var(--card)); stroke: var(--on); filter: drop-shadow(0 0 14px color-mix(in srgb, var(--on) 70%, transparent)); }
+.room3d.on .side-l { fill: color-mix(in srgb, var(--on) 22%, color-mix(in srgb, var(--card) 72%, #000)); }
+.room3d.on .side-r { fill: color-mix(in srgb, var(--on) 16%, color-mix(in srgb, var(--card) 55%, #000)); }
+.room3d:hover .top, .room3d:focus-visible .top { stroke: var(--accent); stroke-width: 4; }
+/* Gemeinsame Platte (Wohn-/Esszimmer): Flaeche leuchtet je Teil, Rand und Seiten, sobald ein Teil an ist */
+.room3d.shared.on .top { fill: var(--card); }
+.room3d .part { fill: transparent; cursor: pointer; outline: none; transition: fill .4s; }
+.room3d .part.on { fill: color-mix(in srgb, var(--on) 38%, var(--card)); }
+.room3d .part:hover, .room3d .part:focus-visible { fill: color-mix(in srgb, var(--accent) 12%, transparent); }
+.room3d .part.on:hover, .room3d .part.on:focus-visible { fill: color-mix(in srgb, var(--on) 46%, var(--card)); }
+.plan-label { pointer-events: none; text-anchor: middle; paint-order: stroke; stroke: var(--card); stroke-opacity: .85; stroke-width: 6px; }
+.plan-label .pl-name { font-size: 40px; font-weight: 650; fill: var(--fg); }
+.plan-label .pl-info { font-size: 30px; fill: var(--muted); }
+.plan-label.on .pl-info { fill: var(--fg); font-weight: 600; }
+.plan-dot { fill: var(--ok); transform-box: fill-box; transform-origin: center; animation: plan-pulse 1.6s infinite; }
+@keyframes plan-pulse { 0% { opacity: 1; transform: scale(1); } 100% { opacity: 0; transform: scale(2.6); } }
+:root[data-theme="klar"] .plan-label { stroke: #fff; stroke-opacity: .6; }
+:root[data-theme="omarchy"] .room3d .top { stroke-width: 3; }
+.room3d.heat .top { stroke: var(--heat, #f08a4b); stroke-width: 5; }
+.room3d.heat .side-l, .room3d.heat .side-r { fill: color-mix(in srgb, var(--heat, #f08a4b) 30%, color-mix(in srgb, var(--card) 60%, #000)); }
+.plan-switch { cursor: pointer; outline: none; }
+.plan-switch .track { fill: color-mix(in srgb, var(--fg) 22%, var(--card)); stroke: var(--card); stroke-width: 3; transition: fill .25s; }
+.plan-switch .knob { fill: var(--card); transition: transform .25s cubic-bezier(.3, 1.4, .5, 1); }
+.plan-switch.on .track { fill: var(--on); }
+.plan-switch.on .knob { transform: translateX(40px); fill: #fff; }
+.plan-switch:hover .track, .plan-switch:focus-visible .track { stroke: var(--accent); }
+:root[data-theme="omarchy"] .plan-switch .track { rx: 0; }
+
+/* Raumschalter im Raum-Blatt */
+.dialog-head { gap: 8px; }
+.dialog-head h1 { margin-right: auto; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.sheet-switch, .zone-toggle { white-space: nowrap; }
+.sheet-switch { min-height: 40px; padding: 0 14px; border-radius: var(--radius-s); border: var(--border) solid var(--line); background: var(--card); font-weight: 600; }
+.sheet-switch.on { background: var(--on); border-color: var(--on); color: #1d1d1b; }
+
+.lay-grundriss { background: none !important; display: block !important; position: relative; }
+.lay-grundriss i { position: absolute; width: 30px !important; height: 30px !important; transform: rotate(45deg) skew(-12deg, -12deg) scaleY(.7); background: color-mix(in srgb, var(--fg) 22%, transparent) !important; }
+.lay-grundriss i:nth-child(1) { left: 14px; top: 8px; } .lay-grundriss i:nth-child(2) { left: 46px; top: 8px; background: var(--on) !important; opacity: .8; }
+.lay-grundriss i:nth-child(3) { left: 30px; top: 22px; } .lay-grundriss i:nth-child(4) { left: 62px; top: 22px; }

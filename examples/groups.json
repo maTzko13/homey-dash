@@ -1,0 +1,11 @@
+[
+ {
+  "id": "wohnzimmer-decke",
+  "name": "Decke",
+  "members": [
+   "<Geräte-ID>",
+   "<Geräte-ID>",
+   "<Geräte-ID>"
+  ]
+ }
+]

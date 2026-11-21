@@ -1,0 +1,57 @@
+#!/usr/bin/env python3
+"""Meldet die Farben des aktiven Omarchy-Themes an homey-dash.
+
+Aufruf aus ~/.config/omarchy/hooks/theme-set.d/ (Omarchy uebergibt den Theme-Namen)
+oder von Hand. Adresse: $HOMEY_DASH_URL oder ~/.config/homey-dash/url.
+Der Plugin-Token kommt aus dem Schluesselbund:
+  secret-tool lookup service homey-dash user <hostname>
+"""
+
+import json
+import os
+import socket
+import subprocess
+import sys
+import tomllib
+import urllib.request
+from pathlib import Path
+
+URL_FILE = Path.home() / ".config/homey-dash/url"
+URL = os.environ.get("HOMEY_DASH_URL") or (URL_FILE.read_text().strip() if URL_FILE.is_file() else "")
+THEME = Path(os.environ.get("OMARCHY_THEME_DIR", Path.home() / ".local/state/omarchy/current/theme"))
+
+
+def main():
+    if not URL.startswith(("https://", "http://")):
+        sys.exit(f"Adresse des Dashboards fehlt: HOMEY_DASH_URL setzen oder in {URL_FILE} eintragen")
+    colors_file = THEME / "colors.toml"
+    if not colors_file.is_file():
+        sys.exit(f"{colors_file} fehlt")
+    data = tomllib.loads(colors_file.read_text())
+    name_file = THEME.parent / "theme.name"
+    name = sys.argv[1] if len(sys.argv) > 1 else (name_file.read_text().strip() if name_file.exists() else THEME.resolve().name)
+    token = subprocess.run(
+        ["secret-tool", "lookup", "service", "homey-dash", "user", socket.gethostname()],
+        capture_output=True, text=True, check=False,
+    ).stdout.strip()
+    if not token:
+        sys.exit(f"kein Token im Schluesselbund (service homey-dash user {socket.gethostname()})")
+    body = json.dumps({
+        "name": name.replace("-", " ").title()[:40],
+        "mode": data.get("mode", "dark"),
+        "colors": {k: v for k, v in data.items() if isinstance(v, str) and v.startswith("#")},
+    }).encode()
+    req = urllib.request.Request(f"{URL}/api/omarchy-theme", data=body, method="POST", headers={
+        "Authorization": f"Bearer {token}", "Content-Type": "application/json", "X-Homey-Dash": "1",
+    })
+    try:
+        with urllib.request.urlopen(req, timeout=10) as resp:
+            print(f"Theme {name} gemeldet ({resp.status})")
+    except urllib.error.HTTPError as exc:
+        sys.exit(f"abgelehnt: {exc.code} {exc.read().decode(errors='replace')[:200]}")
+    except OSError as exc:
+        sys.exit(f"homey-dash nicht erreichbar: {exc}")
+
+
+if __name__ == "__main__":
+    main()

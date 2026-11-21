@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#161615">
+<title>Zuhause</title>
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="icon-192.png">
+<script src="theme.js"></script>
+<script src="i18n.js"></script>
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="omarchy.css">
+</head>
+<body>
+<form id="login" hidden>
+  <h1 data-i18n="title">Zuhause</h1>
+  <label><span data-i18n="login.user">Benutzer</span> <input name="user" autocomplete="username" autocapitalize="none" required></label>
+  <label><span data-i18n="login.password">Passwort</span> <input name="password" type="password" autocomplete="current-password" required></label>
+  <button data-i18n="login.submit">Anmelden</button>
+  <p class="error" id="login-error"></p>
+</form>
+
+<div id="home" hidden>
+  <header class="top">
+    <h1 data-i18n="title">Zuhause</h1>
+    <input id="search" type="search" placeholder="Suchen" aria-label="Geräte suchen" data-i18n-attr="placeholder:search;aria-label:search.label">
+    <select id="pick-layout" class="pick" aria-label="Ansicht" title="Ansicht" data-i18n-attr="aria-label:view;title:view"></select>
+    <select id="pick-theme" class="pick" aria-label="Theme" title="Theme" data-i18n-attr="aria-label:theme;title:theme"></select>
+    <button id="open-settings" class="icon-btn" type="button" aria-label="Einstellungen" title="Einstellungen" data-i18n-attr="aria-label:settings;title:settings"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg></button>
+  </header>
+  <div class="filters" role="group" aria-label="Filter" data-i18n-attr="aria-label:filter.label">
+    <button class="chip" data-cat="light" aria-pressed="false" data-i18n="cat.light">Licht</button>
+    <button class="chip" data-cat="temperature" aria-pressed="false" data-i18n="cat.temperature">Temperatur</button>
+    <button class="chip" data-cat="power" aria-pressed="false" data-i18n="cat.power">Strom</button>
+    <span id="status" class="status"></span>
+  </div>
+
+  <div class="layout">
+    <nav id="zones" class="zones" aria-label="Räume" data-i18n-attr="aria-label:nav.rooms"></nav>
+    <section id="summary" class="summary" aria-label="Übersicht" data-i18n-attr="aria-label:sum.label">
+      <article class="sum-card sum-lights">
+        <svg class="ring" viewBox="0 0 44 44" aria-hidden="true"><circle class="ring-bg" cx="22" cy="22" r="18"/><circle class="ring-fg" cx="22" cy="22" r="18" pathLength="100"/></svg>
+        <div><span class="sum-big" data-sum="lights">–</span><span class="sum-label" data-i18n="sum.lightsOn">Lichter an</span><span class="sum-sub" data-sum="lights-rooms"></span></div>
+      </article>
+      <article class="sum-card sum-inside">
+        <span class="sum-label" data-i18n="sum.inside">Drinnen</span><span class="sum-big" data-sum="inside">–</span><span class="sum-sub" data-sum="inside-range"></span>
+      </article>
+      <article class="sum-card sum-outside">
+        <span class="sum-label" data-i18n="sum.outside">Draußen</span><span class="sum-big" data-sum="outside">–</span><span class="sum-sub" data-sum="outside-sub"></span>
+      </article>
+      <article class="sum-card sum-power">
+        <span class="sum-label" data-i18n="sum.power">Haus jetzt</span><span class="sum-big" data-sum="power">–</span>
+        <svg class="spark" viewBox="0 0 120 32" preserveAspectRatio="none" aria-hidden="true"><path class="spark-area"/><path class="spark-line"/></svg>
+      </article>
+      <article class="sum-card sum-activity">
+        <span class="sum-label" data-i18n="sum.motion">Bewegung</span><div class="sum-motion" data-sum="motion"></div><span class="sum-sub" data-sum="warnings"></span>
+      </article>
+    </section>
+    <section id="plan" class="panel" aria-label="Grundriss" data-i18n-attr="aria-label:plan.label">
+      <button id="plan-turn" class="icon-btn plan-turn" type="button" aria-label="Grundriss nach links drehen" title="Nach links drehen" data-i18n-attr="aria-label:plan.turn;title:plan.turnShort"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/></svg></button>
+      <svg id="plan-svg" class="plan-svg" role="group" aria-label="Wohnung isometrisch" data-i18n-attr="aria-label:plan.svg"></svg>
+      <p id="plan-empty" class="empty" hidden data-i18n="plan.empty">Kein Grundriss hinterlegt.</p>
+    </section>
+    <section id="cards" class="panel" aria-label="Räume" data-i18n-attr="aria-label:nav.rooms">
+      <div id="room-cards" class="room-cards"></div>
+    </section>
+    <section id="heat" class="panel" hidden>
+      <h2 data-i18n="sec.heat">Heizung</h2>
+      <div id="heat-tiles" class="tiles heat-grid"></div>
+    </section>
+    <section id="favs" class="panel">
+      <h2 data-i18n="sec.favs">Favoriten</h2>
+      <div id="fav-tiles" class="tiles strip"></div>
+    </section>
+    <section id="flows" class="panel">
+      <h2 data-i18n="sec.flows">Flows</h2>
+      <div id="flow-list" class="flow-list"></div>
+    </section>
+    <section id="rooms" class="panel">
+      <h2 data-i18n="sec.rooms">Räume</h2>
+      <div id="room-list"></div>
+    </section>
+    <section id="power" class="panel">
+      <h2 data-i18n="sec.power">Verbrauch jetzt</h2>
+      <ol id="power-list" class="power-list"></ol>
+    </section>
+  </div>
+
+  <nav class="bottom" aria-label="Bereiche" data-i18n-attr="aria-label:nav.sections">
+    <a href="#heat" data-i18n="sec.heat">Heizung</a>
+    <a href="#flows" data-i18n="sec.flows">Flows</a>
+    <a href="#rooms" data-i18n="sec.rooms">Räume</a>
+    <a href="#favs" data-i18n="sec.favs">Favoriten</a>
+  </nav>
+</div>
+
+<dialog id="room-sheet" class="sheet" aria-labelledby="sheet-title">
+  <div class="dialog-head">
+    <h1 id="sheet-title"></h1>
+    <span id="sheet-toggles"></span>
+    <button id="sheet-switch" class="sheet-switch" type="button" hidden></button>
+    <button id="close-sheet" class="icon-btn" type="button" aria-label="Schließen" data-i18n-attr="aria-label:close">✕</button>
+  </div>
+  <div id="sheet-tiles" class="tiles"></div>
+</dialog>
+
+<dialog id="settings" aria-labelledby="settings-title">
+  <div class="dialog-head">
+    <h1 id="settings-title" data-i18n="settings">Einstellungen</h1>
+    <button id="close-settings" class="icon-btn" type="button" aria-label="Schließen" data-i18n-attr="aria-label:close">✕</button>
+  </div>
+  <h2 data-i18n="theme">Theme</h2>
+  <div id="theme-list" class="themes" role="radiogroup" aria-label="Theme" data-i18n-attr="aria-label:theme"></div>
+  <h2 data-i18n="settings.layout">Ansicht</h2>
+  <div id="layout-list" class="layouts" role="radiogroup" aria-label="Ansicht" data-i18n-attr="aria-label:view"></div>
+  <h2 data-i18n="settings.lang">Sprache</h2>
+  <div id="lang-list" class="langs" role="radiogroup" aria-label="Sprache" data-i18n-attr="aria-label:settings.lang"></div>
+  <h2 data-i18n="settings.account">Konto</h2>
+  <div class="account">
+    <span id="account-name"></span>
+    <button id="logout" class="link" type="button" data-i18n="logout">Abmelden</button>
+  </div>
+</dialog>
+
+<div id="toast" class="toast" role="status" hidden></div>
+<script src="app.js"></script>
+</body>
+</html>

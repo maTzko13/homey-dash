@@ -1,0 +1,20 @@
+# Start:  mkdir -p data && cp examples/config.json data/ && (API-Key nach data/apikey) && docker compose up -d
+# Demo ohne Homey:  docker compose run --rm -p 8080:8080 homey-dash demo
+services:
+  homey-dash:
+    build: .
+    container_name: homey-dash
+    restart: unless-stopped
+    user: "${UID:-1000}:${GID:-1000}"   # muss data/ schreiben duerfen
+    read_only: true
+    cap_drop: [ALL]
+    security_opt: ["no-new-privileges:true"]
+    volumes:
+      - ./data:/data
+    environment:
+      TZ: Europe/Berlin
+      # Alternativ zu data/config.json, siehe README
+      # HOMEY_DASH_HOMEY_ADDRESS: 192.168.1.20
+    ports:
+      # Nur lokal; davor gehoert ein Reverse Proxy mit HTTPS (Caddy, Traefik, nginx)
+      - "127.0.0.1:8080:8080"
